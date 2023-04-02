@@ -42,7 +42,7 @@ async function onSearchFormSumit(e) {
             galleryListEl.insertAdjacentHTML(onCreateGalleryList(data))
         }) 
         .catch((error) => {
-            console.error(error);
+            console.log(error);
         })
     
 
