@@ -12,7 +12,7 @@ const loadMoreBtnEl = document.querySelector('.js-load-more');
 searchingFormEl.addEventListener('submit', onSearchFormSumit);
 // galleryListEl.addEventListener('click', onGalleryItemClick)
 
-// const pixabayAPI = new PixabayAPI();
+
 // const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 200, });
 
 let baseParams = {
@@ -20,7 +20,7 @@ let baseParams = {
     name:''
 }
 
-// let baseName = "";
+
 let pagesAmount = 0;
 
 
@@ -37,9 +37,9 @@ async function onSearchFormSumit(e) {
 
 
     fetchPhoto(baseParams.name)
-        .then((data) => {
-            console.log(data);
-            galleryListEl.insertAdjacentHTML(onCreateGalleryList(data))
+        .then(({data}) => {
+            console.log(data.hits);
+            galleryListEl.insertAdjacentHTML("beforeend", onCreateGalleryList(data.hits))
         }) 
         .catch((error) => {
             console.log(error);
@@ -47,14 +47,14 @@ async function onSearchFormSumit(e) {
     
 
 }
-function onCreateGalleryList(image) {
-    return image.map(({
+function onCreateGalleryList(images) {
+    return images.map(({
         webformatURL,
         largeImageURL,
         tags,
         likes,
         views,
         comments,
-        downloads }) => `<a href="${image.largeImageURL}" class="photo-card gallery__image" data-aos="fade-up"><img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" clas="galery-image gallery__image" width="280"/><div class="info"><p class="info-item"><b>Likes</b>${image.likes}</p><p class="info-item"><b>Views</b>${image.views}</p><p class="info-item"><b>Comments</b>${image.comments}</p><p class="info-item"><b>Downloads</b>${image.downloads}</p></div></a>`)
+        downloads }) => `<a href="${largeImageURL}" class="photo-card gallery__image" data-aos="fade-up"><img src="${webformatURL}" alt="${tags}" loading="lazy" clas="galery-image gallery__image" width="280"/><div class="info"><p class="info-item"><b>Likes</b>${likes}</p><p class="info-item"><b>Views</b>${views}</p><p class="info-item"><b>Comments</b>${comments}</p><p class="info-item"><b>Downloads</b>${downloads}</p></div></a>`)
 }
     
