@@ -20,8 +20,8 @@ let baseParams = {
     name:''
 }
 
-baseName = "";
-pagesAmount = 0;
+let baseName = "";
+let pagesAmount = 0;
 
 
 async function onSearchFormSumit(e) {
