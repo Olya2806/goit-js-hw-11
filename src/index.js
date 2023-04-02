@@ -30,7 +30,7 @@ async function onSearchFormSumit(e) {
     baseParams.name = e.target.elements.searchQuery.value.trim();
     console.log(baseParams.name);
 
-    if (baseParams.name = "") {
+    if (baseParams.name === "") {
         galleryListEl.innerHTML = "";
         return
     }
