@@ -20,7 +20,7 @@ let baseParams = {
     name:''
 }
 
-let baseName = "";
+// let baseName = "";
 let pagesAmount = 0;
 
 
@@ -30,7 +30,7 @@ async function onSearchFormSumit(e) {
     baseParams.name = e.target.elements.searchQuery.value.trim();
     console.log(baseParams.name);
 
-    if (baseParams.name !== baseName) {
+    if (baseParams.name = "") {
         galleryListEl.innerHTML = "";
         return
     }
@@ -38,6 +38,7 @@ async function onSearchFormSumit(e) {
 
     fetchPhoto(baseParams.name)
         .then((data) => {
+            console.log(data);
             galleryListEl.insertAdjacentHTML(onCreateGalleryList(data))
         }) 
         .catch((error) => {
