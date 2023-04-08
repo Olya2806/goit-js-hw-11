@@ -33,3 +33,25 @@ body {
     font-family: 'Delicious Handrawn', cursive;
     margin: 0;
 }
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+}
+.photo-card {
+    background-color: aliceblue;
+    min-width: 300px;
+    border: 1px solid #212121;
+    align-items: center;
+    padding: 10px;
+
+}
+.info {
+    background-color: rgb(214, 243, 255);
+    padding: 5px;
+}
+.info-item {
+    display: flex;
+    gap: 5px;
+}
