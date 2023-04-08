@@ -36,6 +36,8 @@ body {
 .gallery {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 15px;
     gap: 30px;
     align-items: center;
 }
@@ -54,4 +56,49 @@ body {
 .info-item {
     display: flex;
     gap: 5px;
+}
+
+.js-load-more{
+    background-color: rgb(25, 118, 217);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    font-size: medium;
+    color: aliceblue;
+}
+.js-load-more:hover {
+    background-color: blue;
+}
+
+.is-hidden{
+    display: none;
+}
+.endlist-text{
+    font-size: large;
+    text-align: center;
+}
+.main-container{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 15px;
+}
+.submit-btn{
+    padding: 10px;
+    background-color: rgb(25, 118, 217);
+    color: aliceblue;
+    width: 150px;
+    font-size: medium;
+}
+.submit-btn:hover{
+    background-color: blue;
+}
+.input{
+    width: 250px;
+    padding: 10px;
+    font-size: medium;
+}
+.search-form{
+    display: flex;
+    gap: 10px;
 }
