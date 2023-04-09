@@ -15,16 +15,15 @@ export default class PixabayAPI {
             return IMG_URL;
     } catch (error) {
     console.log(error);
+        }
+    
     }
-
+    
     incrementPage() {
         this.page += 1;
-    }
+        }
 
     resetPage() {
         this.page = 1
         }
-    
-
-    }
 }
