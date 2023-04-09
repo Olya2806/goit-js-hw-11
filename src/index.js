@@ -3,6 +3,7 @@ import axios from "axios";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import './css/styles.css';
+import {fetchPhoto} from './fetchPhoto'
 
 const searchingFormEl = document.querySelector('.search-form');
 const galleryListEl = document.querySelector('.js-gallery');
@@ -56,7 +57,7 @@ async function fetchPhoto(searchQuery, page=1) {
             return
         } 
         if (baseParams.page === 1) {
-            Notiflix.Notify.success(`We have found ${data.total} photos for you`);
+            Notiflix.Notify.success(`We have found ${data.totalHits} photos for you`);
         }
             baseParams.page += 1;
             console.log(data);
@@ -66,7 +67,7 @@ async function fetchPhoto(searchQuery, page=1) {
         lightbox.refresh();
 
         const allPhotos = document.querySelectorAll('.gallery__image')
-        if (data.totalHits === allPhotos.length || allPhotos.length === 480) {
+        if (data.totalHits === allPhotos.length || baseParams.page === 13) {
             loadMoreBtnEl.classList.add('is-hidden')
             endListText.classList.remove('is-hidden')
         }
