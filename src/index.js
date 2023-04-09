@@ -31,7 +31,7 @@ async function onSearchFormSumit(e) {
         galleryListEl.innerHTML = "";
         return
     }
-    PixabayAPI.searchQuery(e.target.elements.searchQuery.value.trim())
+    PixabayAPI.setQuery(e.target.elements.searchQuery.value.trim())
     PixabayAPI.resetPage()
     galleryListEl.innerHTML = ('');
     endListText.classList.add('is-hidden')
