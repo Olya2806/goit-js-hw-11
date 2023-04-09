@@ -3,7 +3,7 @@ import axios from "axios";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import './css/styles.css';
-import {fetchPhoto} from './fetchPhoto'
+import { PixabayAPI,fetchPhoto } from './fetchPhoto'
 
 const searchingFormEl = document.querySelector('.search-form');
 const galleryListEl = document.querySelector('.js-gallery');
