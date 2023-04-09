@@ -1,5 +1,5 @@
 import Notiflix from 'notiflix';
-import axios from "axios";
+
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import './css/styles.css';
@@ -16,13 +16,9 @@ loadMoreBtnEl.addEventListener('click', onLoadMoreBtnClick);
 const pixabayAPI = new PixabayAPI();
 const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250, });
 
-// const initialHeight = document.documentElement.scrollHeight;
-
 async function onSearchFormSumit(e) {
     e.preventDefault();
     
-    // baseParams.name = e.target.elements.searchQuery.value.trim();
-    // console.log(baseParams.name);
 
     if (e.target.elements.searchQuery.value.trim() === "") {
         galleryListEl.innerHTML = "";
@@ -42,7 +38,6 @@ async function onSearchFormSumit(e) {
 async function onLoadMoreBtnClick() {
     await fetchPhotos()
 
-    // galleryListEl.scrollTop += 80000
     const { height: cardHeight } = document
     .querySelector(".js-gallery")
     ?.firstElementChild?.getBoundingClientRect();
@@ -52,9 +47,6 @@ window.scrollBy({
     top: cardHeight * 2,
     behavior: "smooth",
 });
-    
-    // const newHeight = document.documentElement.scrollHeight;
-    // window.scrollTo(0, newHeight - initialHeight + cardHeight * 2);
     
     console.log(cardHeight * 2);
     console.log(document
