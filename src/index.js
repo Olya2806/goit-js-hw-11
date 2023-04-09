@@ -3,7 +3,7 @@ import axios from "axios";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import './css/styles.css';
-import PixabayAPI  from './fetchPhoto'
+import PixabayAPI from './fetchPhoto'
 
 const searchingFormEl = document.querySelector('.search-form');
 const galleryListEl = document.querySelector('.js-gallery');
@@ -13,13 +13,10 @@ const endListText = document.querySelector('.endlist-text')
 searchingFormEl.addEventListener('submit', onSearchFormSumit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreBtnClick);
 
-
+const pixabayAPI = new PixabayAPI();
 const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250, });
 
-// let baseParams = {
-//     page: 1,
-//     name:''
-// }
+// const initialHeight = document.documentElement.scrollHeight;
 
 async function onSearchFormSumit(e) {
     e.preventDefault();
@@ -31,8 +28,8 @@ async function onSearchFormSumit(e) {
         galleryListEl.innerHTML = "";
         return
     }
-    PixabayAPI.setQuery(e.target.elements.searchQuery.value.trim())
-    PixabayAPI.resetPage()
+    pixabayAPI.setQuery(e.target.elements.searchQuery.value.trim())
+    pixabayAPI.resetPage()
     galleryListEl.innerHTML = ('');
     endListText.classList.add('is-hidden')
 
@@ -43,12 +40,32 @@ async function onSearchFormSumit(e) {
 
 
 async function onLoadMoreBtnClick() {
-    fetchPhotos()
+    await fetchPhotos()
+
+    // galleryListEl.scrollTop += 80000
+    const { height: cardHeight } = document
+    .querySelector(".js-gallery")
+    ?.firstElementChild?.getBoundingClientRect();
+    
+
+window.scrollBy({
+    top: cardHeight * 2,
+    behavior: "smooth",
+});
+    
+    // const newHeight = document.documentElement.scrollHeight;
+    // window.scrollTo(0, newHeight - initialHeight + cardHeight * 2);
+    
+    console.log(cardHeight * 2);
+    console.log(document
+    .querySelector(".js-gallery")
+    .firstElementChild.getBoundingClientRect());
+
 }
 
 async function fetchPhotos() {
     try {
-        const data = await PixabayAPI.fetchPhoto()
+        const data = await pixabayAPI.fetchPhoto()
         
         if (data.total === 0) {
             galleryListEl.innerHTML = ''
@@ -56,10 +73,10 @@ async function fetchPhotos() {
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again');
             return
         } 
-        if (baseParams.page === 1) {
+        if (pixabayAPI.getPage() === 1) {
             Notiflix.Notify.success(`We have found ${data.totalHits} photos for you`);
         }
-            baseParams.page += 1;
+            pixabayAPI.incrementPage()
             console.log(data);
             const html = onCreateGalleryList(data.hits)
         galleryListEl.insertAdjacentHTML('beforeend', html)
@@ -67,7 +84,7 @@ async function fetchPhotos() {
         lightbox.refresh();
 
         const allPhotos = document.querySelectorAll('.gallery__image')
-        if (data.totalHits === allPhotos.length || baseParams.page === 13) {
+        if (data.totalHits === allPhotos.length || pixabayAPI.getPage() === 13) {
             loadMoreBtnEl.classList.add('is-hidden')
             endListText.classList.remove('is-hidden')
         }
