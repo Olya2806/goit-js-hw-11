@@ -3,7 +3,7 @@ import axios from "axios";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import './css/styles.css';
-import { PixabayAPI,fetchPhoto } from './fetchPhoto'
+import { PixabayAPI } from './fetchPhoto'
 
 const searchingFormEl = document.querySelector('.search-form');
 const galleryListEl = document.querySelector('.js-gallery');
@@ -16,38 +16,37 @@ loadMoreBtnEl.addEventListener('click', onLoadMoreBtnClick);
 
 const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250, });
 
-let baseParams = {
-    page: 1,
-    name:''
-}
+// let baseParams = {
+//     page: 1,
+//     name:''
+// }
 
 async function onSearchFormSumit(e) {
     e.preventDefault();
     
-    baseParams.name = e.target.elements.searchQuery.value.trim();
-    console.log(baseParams.name);
+    // baseParams.name = e.target.elements.searchQuery.value.trim();
+    // console.log(baseParams.name);
 
-    if (baseParams.name === "") {
+    if (e.target.elements.searchQuery.value.trim() === "") {
         galleryListEl.innerHTML = "";
         return
     }
-    baseParams.page = 1
+    PixabayAPI.resetPage()
     galleryListEl.innerHTML = ('');
     endListText.classList.add('is-hidden')
 
 
-    fetchPhoto(baseParams.name, baseParams.page)
+    fetchPhotos()
 }
 
 
 
 async function onLoadMoreBtnClick() {
-    fetchPhoto(baseParams.name, baseParams.page)
+    PixabayAPI.fetchPhoto(baseParams.name, baseParams.page)
 }
 
-async function fetchPhoto(searchQuery, page=1) {
-    const IMG_URL = `https://pixabay.com/api/?key=34995018-f3e2a6c650b6c06aad8f250eb&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`
-
+async function fetchPhotos(searchQuery, page=1) {
+    const data = await PixabayAPI.fetchPhoto()
     try {
         const { data } = await axios.get(IMG_URL)
         if (data.total === 0) {
