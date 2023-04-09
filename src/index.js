@@ -31,6 +31,7 @@ async function onSearchFormSumit(e) {
         galleryListEl.innerHTML = "";
         return
     }
+    PixabayAPI.searchQuery(e.target.elements.searchQuery.value.trim())
     PixabayAPI.resetPage()
     galleryListEl.innerHTML = ('');
     endListText.classList.add('is-hidden')
@@ -46,9 +47,9 @@ async function onLoadMoreBtnClick() {
 }
 
 async function fetchPhotos() {
-    const data = await PixabayAPI.fetchPhoto()
     try {
-        const { data } = await axios.get(IMG_URL)
+        const data = await PixabayAPI.fetchPhoto()
+        
         if (data.total === 0) {
             galleryListEl.innerHTML = ''
             loadMoreBtnEl.classList.add('is-hidden')
