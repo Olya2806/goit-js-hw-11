@@ -42,10 +42,10 @@ async function onSearchFormSumit(e) {
 
 
 async function onLoadMoreBtnClick() {
-    PixabayAPI.fetchPhoto(baseParams.name, baseParams.page)
+    fetchPhotos()
 }
 
-async function fetchPhotos(searchQuery, page=1) {
+async function fetchPhotos() {
     const data = await PixabayAPI.fetchPhoto()
     try {
         const { data } = await axios.get(IMG_URL)
